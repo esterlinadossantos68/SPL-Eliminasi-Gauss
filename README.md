@@ -24,23 +24,46 @@ menentukan nilai variabel menggunakan substitusi mundur.
 9. Tampilkan nilai setiap variabel.
 10. Selesai.
 
-## 4. Pseudocode
+## Pseudocode
 
 ALGORITMA ELIMINASI GAUSS
 
-Input A dan B
+Deklarasi:
+    A : matriks koefisien
+    B : matriks hasil
+    M : matriks augmented
+    x : array solusi
+    n : jumlah variabel
+    i, j, k : integer
+    faktor : real
+
+Deskripsi:
+
+Mulai
+
+Input matriks A
+Input matriks B
+
 Gabungkan A dan B menjadi matriks augmented [A | B]
 
-Untuk setiap pivot:
-    Jika pivot = 0:
-        Tukar baris
-    Untuk setiap baris di bawah pivot:
-        Hitung faktor
-        Kurangi baris dengan faktor × baris pivot
+Untuk i = 0 sampai n-1:
+    Jika M[i][i] = 0:
+        Cari baris di bawahnya
+        Jika ditemukan:
+            Tukarkan baris
 
-Lakukan substitusi mundur
+    Untuk k = i+1 sampai n-1:
+        faktor = M[k][i] / M[i][i]
 
-Tampilkan solusi
+        Untuk j = i sampai n:
+            M[k][j] = M[k][j] - faktor × M[i][j]
+
+Lakukan substitusi mundur:
+
+Untuk i = n-1 turun sampai 0:
+    Hitung nilai x[i]
+
+Tampilkan nilai x
 
 Selesai
 
@@ -64,3 +87,4 @@ Metode Eliminasi Gauss dapat digunakan untuk menyelesaikan
 Sistem Persamaan Linear dengan mengubah matriks augmented
 menjadi bentuk segitiga atas dan dilanjutkan dengan substitusi
 mundur.
+
