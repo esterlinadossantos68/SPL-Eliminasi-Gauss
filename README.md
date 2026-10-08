@@ -24,7 +24,7 @@ menentukan nilai variabel menggunakan substitusi mundur.
 9. Tampilkan nilai setiap variabel.
 10. Selesai.
 
-## Pseudocode
+## 4. Pseudocode
 
 ALGORITMA ELIMINASI GAUSS
 
