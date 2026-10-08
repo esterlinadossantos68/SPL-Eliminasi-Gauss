@@ -67,19 +67,88 @@ Tampilkan nilai x
 
 Selesai
 
-## 5. Contoh SPL
+## 5. Flowchart
 
-2x + y - z = 8
+![Flowchart Penyelesaian SPL Metode Eliminasi Gauss](FlowChart.png)
 
--3x - y + 2z = -11
+## 6. Kode Phyton
 
--2x + y + 2z = -3
+import numpy as np
 
-## 6. Hasil
+def eliminasi_gauss(A, B):
+    A = np.array(A, dtype=float)
+    B = np.array(B, dtype=float).reshape(-1, 1)
 
-x1 = 2
-x2 = 3
-x3 = -1
+    # Membentuk matriks augmented [A | B]
+    M = np.hstack((A, B))
+    n = len(B)
+
+    # Proses eliminasi
+    for i in range(n):
+
+        # Mengecek pivot
+        if abs(M[i][i]) < 1e-12:
+            for k in range(i + 1, n):
+                if abs(M[k][i]) > 1e-12:
+                    M[[i, k]] = M[[k, i]]
+                    break
+            else:
+                raise ValueError(
+                    "Sistem tidak memiliki solusi tunggal."
+                )
+
+        # Eliminasi elemen di bawah pivot
+        for k in range(i + 1, n):
+            faktor = M[k][i] / M[i][i]
+
+            for j in range(i, n + 1):
+                M[k][j] -= faktor * M[i][j]
+
+    # Substitusi mundur
+    x = np.zeros(n)
+
+    for i in range(n - 1, -1, -1):
+        jumlah = 0
+
+        for j in range(i + 1, n):
+            jumlah += M[i][j] * x[j]
+
+        x[i] = (M[i][n] - jumlah) / M[i][i]
+
+    return M, x
+
+
+# Contoh SPL
+A = [
+    [2, 1, -1],
+    [-3, -1, 2],
+    [-2, 1, 2]
+]
+
+B = [8, -11, -3]
+
+# Menjalankan program
+matriks_akhir, solusi = eliminasi_gauss(A, B)
+
+print("Matriks setelah Eliminasi Gauss:")
+print(np.round(matriks_akhir, 3))
+
+print("\nHasil Penyelesaian SPL:")
+
+for i, nilai in enumerate(solusi):
+    print(f"x{i+1} = {nilai:.3f}")
+
+## 7. Hasil Running
+
+Matriks setelah proses Eliminasi Gauss:
+[[ 2.   1.  -1.   8. ]
+ [ 0.   0.5  0.5  1. ]
+ [ 0.   0.  -1.   1. ]]
+
+Hasil Penyelesaian SPL:
+x1 = 2.000
+x2 = 3.000
+x3 = -1.000
 
 ## 7. Kesimpulan
 
